@@ -1,0 +1,17 @@
+project
+.classpath
+.settings/
+bin/
+target/
+.git/
+.idea
+*.iml
+*.gz
+*.dat_old
+*.zip
+*.backup
+duomaomao/world/playerdata
+duomaomao/world/stats
+duomaomao/world/advancements
+duomaomao/plugins/Essentials/userdata
+/duomaomao/
