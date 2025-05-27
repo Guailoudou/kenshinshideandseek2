@@ -98,6 +98,11 @@ public class Maps {
             .filter(Objects::nonNull)
             .collect(Collectors.toList())
         );
+        List<String> strRandomPoints = data.getStringList("randompoints.pos");
+        for (String str : strRandomPoints) {
+            String[] split = str.split(",");
+            map.addRandomPoint(new org.bukkit.Location(null, Double.parseDouble(split[0]), Double.parseDouble(split[1]), Double.parseDouble(split[2])));
+        }
         return map;
     }
 

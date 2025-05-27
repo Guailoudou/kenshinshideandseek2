@@ -39,6 +39,7 @@ public class Map {
     private List<Material>
         blockhuntBlocks = new ArrayList<>();
 
+    private static final List<org.bukkit.Location> randomPoints = new ArrayList<>();
     private final Border
         worldBorder;
 
@@ -98,7 +99,12 @@ public class Map {
         this.xBoundMax = x;
         this.zBoundMax = z;
     }
-
+    public static List<org.bukkit.Location> getRandomPoints() {
+        return randomPoints;
+    }
+    public void addRandomPoint(org.bukkit.Location point) {
+        randomPoints.add(point);
+    }
     @NotNull
     public dev.tylerm.khs.util.Location getGameSpawn() {
         if(mapSaveEnabled) {
