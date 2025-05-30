@@ -300,7 +300,7 @@ public class Board {
                     board.setLine(String.valueOf(i), line.replace("{MAP}", getMapName() + ""));
                 } else if (line.contains("{DQSJ}")) {//当前事件
                     board.setLine(String.valueOf(i), line.replace("{DQSJ}", RandomEvents.lastEvent == null ? "暂无事件" : RandomEvents.lastEvent.getName()));
-                } else if (line.contains("{SJSJSJ}")) {//事件时间
+                } else if (line.contains("{SJSJSJ}")&&isHider(player)) {//事件时间
                     int tt = (RandomEvents.LOOPER_TIME_TICKS - RandomEvents.time % RandomEvents.LOOPER_TIME_TICKS) / 20;
                     board.setLine(String.valueOf(i), line.replace("{SJSJSJ}", tt / 60 + "m" + tt % 60 + "s"));
                 } else if (line.contains("{GJSJ}")) {//弓箭时间

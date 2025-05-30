@@ -91,7 +91,7 @@ public class Disguise {
         return hider;
     }
 
-    public static int GIVE_ARROW_TIME_TICKS = 5 * 60 * 20;
+    public static int GIVE_ARROW_TIME_TICKS = 3 * 60 * 20;
 
     public void update() {
         if (block == null || block.isDead()) {

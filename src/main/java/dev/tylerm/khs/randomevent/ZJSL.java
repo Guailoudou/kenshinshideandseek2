@@ -20,13 +20,17 @@ public class ZJSL implements IRandomEvent {
     public static final List<String> list = new ArrayList<>();
 
     static {
-        list.add("81 93 -81");
-        list.add("67 112 -63");
-        list.add("89 80 -9");
-        list.add("39 89 36");
-        list.add("38 75 -54");
-        list.add("81 83 -63");
-        list.add("35 75 -55");
+        list.add("40 89 27");
+        list.add("156 72 44");
+        list.add("-65 67 -38");
+        list.add("-51 83 58");
+        list.add("101 86 131");
+        list.add("61 74 93");
+        list.add("84 76 12");
+        list.add("-54 67 -47");
+        list.add("-82 73 -84");
+        list.add("112 74 -44");
+        list.add("40 73 55");
     }
 
     @Override
