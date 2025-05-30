@@ -9,6 +9,7 @@ import dev.tylerm.khs.randomevent.*;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
+import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
@@ -27,10 +28,12 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 import static dev.tylerm.khs.configuration.Config.*;
 import static dev.tylerm.khs.configuration.Localization.message;
+
 
 @SuppressWarnings("deprecation")
 public class InteractHandler implements Listener {
@@ -121,6 +124,28 @@ public class InteractHandler implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerInteract(PlayerInteractEvent event) {
         if (!Main.getInstance().getBoard().contains(event.getPlayer())) return;
+        if(event.getClickedBlock()!=null) {
+            Material clickedBlock = event.getClickedBlock().getType();
+            if (event.getAction() == Action.RIGHT_CLICK_BLOCK)
+                if (clickedBlock == Material.CHEST || //  箱子
+                        clickedBlock == Material.ENDER_CHEST || //  末影箱
+                        clickedBlock == Material.TRAPPED_CHEST || //  陷阱箱
+                        clickedBlock == Material.FURNACE || //  熔炉
+                        clickedBlock == Material.DISPENSER || //  发射器
+                        clickedBlock == Material.BREWING_STAND || //  酿造台
+                        clickedBlock == Material.HOPPER || //  漏斗
+                        clickedBlock == Material.DROPPER || //投掷器
+                        clickedBlock == Material.CHEST_MINECART || //  箱子矿车
+                        clickedBlock == Material.HOPPER_MINECART ||//漏斗矿车
+                        clickedBlock == Material.BARREL || //木桶
+                        clickedBlock == Material.BLAST_FURNACE || //高炉
+                        clickedBlock == Material.SMOKER //烟熏
+
+                ) {
+                    event.setCancelled(true);
+                    return;
+                }
+        }
         if (event.getItem() != null) {
 
             var name = event.getItem().getItemMeta().getDisplayName();
@@ -150,6 +175,7 @@ public class InteractHandler implements Listener {
                 if (item.getAmount() <= 0) {
                     player.getInventory().remove(item);
                 }
+                return;
             }
 
             if ("嘲讽猫猫".equals(name)) {
@@ -180,6 +206,7 @@ public class InteractHandler implements Listener {
                 RandomEvents.time += 20;
                 player.setHealth(Math.min(player.getHealth() + 4, player.getMaxHealth()));
                 //Main.getInstance().getGame().broadcastMessage(tauntPrefix + message("TAUNT_ACTIVATE"));
+                return;
             }
 
             if ("速效救心丸".equals(name)) {
@@ -194,6 +221,7 @@ public class InteractHandler implements Listener {
                 if (item.getAmount() <= 0) {
                     player.getInventory().remove(item);
                 }
+                return;
             }
 
             if (event.getItem().isSimilar(glowPowerupItem)) {
@@ -201,6 +229,7 @@ public class InteractHandler implements Listener {
                 if (Main.getInstance().getBoard().isHider(player)) {
                     Main.getInstance().getGame().getGlow().onProjectile();
                 }
+                return;
             }
 
             //鼠洞传送
@@ -217,6 +246,7 @@ public class InteractHandler implements Listener {
                 if (item.getAmount() <= 0) {
                     player.getInventory().remove(item);
                 }
+                return;
             }
 
             if (YS.NAME.equals(name)) {
@@ -240,6 +270,7 @@ public class InteractHandler implements Listener {
                 }
 
                 //disguiser.disguise(player, Material.AIR, null);
+                return;
             }
 
             if (BK.NAME.equals(name)) {
@@ -254,6 +285,7 @@ public class InteractHandler implements Listener {
                             cloest = seeker;
                         }
                     }
+
                 }
 
                 if (cloest != null) {
@@ -267,7 +299,7 @@ public class InteractHandler implements Listener {
                 if (item.getAmount() <= 0) {
                     player.getInventory().remove(item);
                 }
-
+                return;
                 //disguiser.disguise(player, Material.AIR, null);
             }
         }

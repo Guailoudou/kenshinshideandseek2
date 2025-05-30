@@ -87,11 +87,11 @@ public class InventoryHandler implements Listener {
     private void checkForDebugMenu(InventoryClickEvent event){
         Player player = (Player) event.getWhoClicked();
         boolean debug;
-        if(Main.getInstance().supports(14)){
-            debug = event.getView().getTitle().equals("Debug Menu") && player.hasPermission("hideandseek.debug");
-        } else {
-            debug = event.getInventory().getName().equals("Debug Menu") && player.hasPermission("hideandseek.debug");
-        }
+//        if(Main.getInstance().supports(14)){
+        debug = event.getView().getTitle().equals("Debug Menu") && player.hasPermission("hideandseek.debug");
+//        } else {
+//            debug = event.getInventory().getName().equals("Debug Menu") && player.hasPermission("hideandseek.debug");
+//        }
         if (debug){
             event.setCancelled(true);
             player.closeInventory();
@@ -107,9 +107,9 @@ public class InventoryHandler implements Listener {
             if(!test) return;
             mapName = event.getView().getTitle().substring("Select a Block: ".length());
         } else {
-            test = event.getInventory().getName().startsWith("Select a Block: ");
+            test = event.getView().getTitle().startsWith("Select a Block: ");
             if(!test) return;
-            mapName = event.getInventory().getName().substring("Select a Block: ".length());
+            mapName = event.getView().getTitle().substring("Select a Block: ".length());
         }
         event.setCancelled(true);
         Map map = Maps.getMap(mapName);
@@ -131,9 +131,9 @@ public class InventoryHandler implements Listener {
             if(!test) return;
             mapName = event.getView().getTitle().substring("Select a Block: ".length());
         } else {
-            test = event.getInventory().getName().startsWith("Select a Block: ");
+            test = event.getView().getTitle().startsWith("Select a Block: ");
             if(!test) return;
-            mapName = event.getInventory().getName().substring("Select a Block: ".length());
+            mapName = event.getView().getTitle().substring("Select a Block: ".length());
         }
         Map map = Maps.getMap(mapName);
         if(map == null) return;

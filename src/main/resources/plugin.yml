@@ -3,7 +3,7 @@ main: dev.tylerm.khs.Main
 version: 1.7.7
 author: KenshinEto
 load: STARTUP
-api-version: 1.13
+api-version: 1.20
 depend: [ProtocolLib]
 softdepend: [PlaceholderAPI]
 commands:
