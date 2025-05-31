@@ -11,6 +11,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.scoreboard.*;
 
 import java.util.*;
@@ -26,6 +27,7 @@ public class Board {
     private final Map<UUID, Type> LeavePlayers = new HashMap<>(); // Used to track players who left the game
     private final Map<UUID, ItemStack[]> LeaveInventory = new HashMap<>();
     private final Map<UUID, CustomBoard> customBoards = new HashMap<>();
+    private final Map<UUID, Collection<PotionEffect>> bafflist = new HashMap<>();
     private final Map<UUID, Integer> hider_kills = new HashMap<>(), seeker_kills = new HashMap<>(), hider_deaths = new HashMap<>(), seeker_deaths = new HashMap<>();
     private List<UUID> initialSeekers = null;
 
@@ -300,10 +302,11 @@ public class Board {
                     board.setLine(String.valueOf(i), line.replace("{MAP}", getMapName() + ""));
                 } else if (line.contains("{DQSJ}")) {//当前事件
                     board.setLine(String.valueOf(i), line.replace("{DQSJ}", RandomEvents.lastEvent == null ? "暂无事件" : RandomEvents.lastEvent.getName()));
-                } else if (line.contains("{SJSJSJ}")&&isHider(player)) {//事件时间
+                } else if (line.contains("{SJSJSJ}")) {//事件时间
                     int tt = (RandomEvents.LOOPER_TIME_TICKS - RandomEvents.time % RandomEvents.LOOPER_TIME_TICKS) / 20;
                     board.setLine(String.valueOf(i), line.replace("{SJSJSJ}", tt / 60 + "m" + tt % 60 + "s"));
                 } else if (line.contains("{GJSJ}")) {//弓箭时间
+                    if(isSeeker(player))continue;
                     int tt = (Disguise.GIVE_ARROW_TIME_TICKS - Disguise.lastGiveArrowTimes % Disguise.GIVE_ARROW_TIME_TICKS) / 20;
                     board.setLine(String.valueOf(i), line.replace("{GJSJ}", tt / 60 + "m" + tt % 60 + "s"));
                 } else {
@@ -389,9 +392,17 @@ public class Board {
     public ItemStack[] getLeaveInventory(Player player) {
         return LeaveInventory.get(player.getUniqueId());
     }
+
+    public void addBafflist(Player player) {
+        bafflist.put(player.getUniqueId(), player.getActivePotionEffects());
+    }
+    public Collection<PotionEffect> getBafflist(Player player){
+         return bafflist.get(player.getUniqueId());
+    }
     public void removeLeave() {
         LeaveInventory.clear();
         LeavePlayers.clear();
+         bafflist.clear();
     }
     private enum Type {
         HIDER,

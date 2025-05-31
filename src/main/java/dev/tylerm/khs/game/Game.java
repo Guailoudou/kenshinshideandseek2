@@ -201,7 +201,7 @@ public class Game {
 			board.reloadBoardTeams();
 			player.setGameMode(GameMode.ADVENTURE);
 			player.getInventory().setContents(board.getLeaveInventory(player));
-			player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 1000000, 5, false, false));
+			board.getBafflist(player).forEach(player::addPotionEffect);
 			player.sendMessage(messagePrefix + "躲藏者重进");
 		}else if(board.isLeaveSeeker(player)){
 			board.addSeeker(player);
@@ -210,6 +210,7 @@ public class Game {
 			board.reloadBoardTeams();
 			player.setGameMode(GameMode.ADVENTURE);
 			player.getInventory().setContents(board.getLeaveInventory(player));
+			board.getBafflist(player).forEach(player::addPotionEffect);
 			player.sendMessage(messagePrefix + "捕捉者重进");
 		}
 		else {
@@ -371,10 +372,17 @@ public class Game {
 		board.getPlayers().forEach(player -> {
 			board.addLeaveInventory(player);
 			board.addLeavePlayer(player); //  remove player add
+			board.addBafflist(player);
 		});
-
+		if(getTimeLeft()==60*5&&!golwing){
+			golwing=true;
+			broadcastMessage(messagePrefix+"最后5min，众神之父赐予我视野，全体发光吧！鼠鼠们！");
+			board.getHiders().forEach(player -> {
+				 player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 20*60*5, 0));
+			});
+		}
 	}
-
+	private boolean golwing=false;
 	public void broadcastMessage(String message) {
 		for(Player player : board.getPlayers()) {
 			player.sendMessage(message);

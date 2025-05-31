@@ -139,7 +139,42 @@ public class InteractHandler implements Listener {
                         clickedBlock == Material.HOPPER_MINECART ||//漏斗矿车
                         clickedBlock == Material.BARREL || //木桶
                         clickedBlock == Material.BLAST_FURNACE || //高炉
-                        clickedBlock == Material.SMOKER //烟熏
+                        clickedBlock == Material.SMOKER ||//烟熏
+                         clickedBlock == Material.CARTOGRAPHY_TABLE || //  制图台
+                        clickedBlock == Material.SMITHING_TABLE || //  锻造台
+                        clickedBlock == Material.LOOM || //  织布机
+                        clickedBlock == Material.COMPOSTER || //  堆肥器
+                        clickedBlock == Material.BELL || //  钟
+                         clickedBlock == Material.SHULKER_BOX || //  潜影盒
+                         clickedBlock == Material.BEE_NEST || //  蜂巢
+                        clickedBlock == Material.BEEHIVE || //  蜂箱
+                        clickedBlock == Material.LECTERN || //  书台
+                        clickedBlock == Material.JUKEBOX || //  唱片机
+                        clickedBlock == Material.NOTE_BLOCK || //  音符盒
+                        clickedBlock == Material.GRINDSTONE || //   砂轮
+                        clickedBlock == Material.LODESTONE || //  磁石
+                         clickedBlock == Material.COMPARATOR || //  比较器
+                        clickedBlock == Material.ANVIL || //   铁砧
+                        clickedBlock == Material.CRAFTING_TABLE || //  工作台
+                        clickedBlock == Material.WHITE_SHULKER_BOX ||
+                         clickedBlock == Material.ORANGE_SHULKER_BOX ||
+                          clickedBlock == Material.MAGENTA_SHULKER_BOX ||
+                         clickedBlock == Material.LIGHT_BLUE_SHULKER_BOX ||
+                         clickedBlock == Material.YELLOW_SHULKER_BOX ||
+                         clickedBlock == Material.LIME_SHULKER_BOX ||
+                         clickedBlock == Material.PINK_SHULKER_BOX ||
+                         clickedBlock == Material.GRAY_SHULKER_BOX ||
+                         clickedBlock == Material.LIGHT_GRAY_SHULKER_BOX ||
+                         clickedBlock == Material.CYAN_SHULKER_BOX ||
+                         clickedBlock == Material.PURPLE_SHULKER_BOX ||
+                         clickedBlock == Material.BLUE_SHULKER_BOX ||
+                          clickedBlock == Material.GREEN_SHULKER_BOX ||
+                         clickedBlock == Material.RED_SHULKER_BOX ||
+                          clickedBlock == Material.BLACK_SHULKER_BOX||
+                         clickedBlock == Material.BROWN_SHULKER_BOX
+
+
+
 
                 ) {
                     event.setCancelled(true);
@@ -205,7 +240,11 @@ public class InteractHandler implements Listener {
                 }
                 RandomEvents.time += 20;
                 player.setHealth(Math.min(player.getHealth() + 4, player.getMaxHealth()));
-                //Main.getInstance().getGame().broadcastMessage(tauntPrefix + message("TAUNT_ACTIVATE"));
+                while(player.getInventory().contains(Material.FIREWORK_ROCKET))
+                    player.getInventory().remove(Material.FIREWORK_ROCKET);
+                if(player.getInventory().getItemInOffHand().getType()== Material.FIREWORK_ROCKET){
+                     player.getInventory().setItemInOffHand(new ItemStack(Material.AIR));
+                }
                 return;
             }
 

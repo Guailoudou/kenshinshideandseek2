@@ -93,7 +93,7 @@ public class DamageHandler implements Listener {
         }
 
 
-        if (player.getHealth() - event.getFinalDamage() <= 0)
+        if (player.getHealth() - event.getFinalDamage() <= 0 && board.isHider(player))
             if (RandomEvents.lastEvent instanceof SQLH) {
                 lab:
                 if (!SQLH.alreadyDead.contains(player.getUniqueId())) {
